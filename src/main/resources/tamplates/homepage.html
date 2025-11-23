@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cine.me</title>
+    <link rel="stylesheet" th:href="@{/homepage.css}">
+</head>
+<body>
+    <header>
+        <nav>
+            <form action="/search" method="get" class="search-bar">
+            <input type="text" placeholder="O que está buscando?" name="q">
+            <button type="submit">🔍</button>
+            </form>
+
+            <ul class="menu-links">
+                <li><a th:href="@{/filmes}">Filmes</a></li> 
+                <li><a th:href="@{/series}">Séries</a></li>
+                <li><a th:href="@{/perfil}">Perfil</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="alinhamento">
+        <div>
+            <section>
+                <div>
+                    <h2 class="section-title">EM DESTAQUE</h2>
+                    <div class="featured-placeholder">
+                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/ezFb7Yxx80k?si=Tf0TyISm7kh1WgLC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </section>
+            <section style="margin-top: 40px;">
+                <h2 class="section-title">PARA VOCÊ:</h2>
+                
+                <!-- Card de Recomendação -->
+                <div th:each="rec : ${recomendacoes}" class="recommendation-container">
+                    <div class="recommendation-card">
+                        <!-- Imagem/Placeholder (Esquerda) -->
+                        <div class="rec-image-placeholder"></div>
+                    
+                        <!-- Detalhes e Botões (Direita) -->
+                        <div class="rec-details">
+                            <h3 th:text="${rec.titulo}">Nome da série/filme</h3>
+                            <p th:text="${rec.textoMock}">
+                                texto texto texto texto texto texto texto texto texto texto texto
+                            </p>
+                    
+                            <div class="rec-buttons">
+                                <!-- Botão 1: Avaliar -->
+                                <button class="btn-accent">
+                                    Avaliar
+                                </button>
+                                <!-- Botão 2: Adicionar à minha lista -->
+                                <button class="btn-dark">
+                                    Adicionar à minha lista
+                                </button>
+                            </div>
+                        </div>
+                </div>
+            </section>
+        </div>
+
+        <aside class="avaliacoes-recentes">
+           <h2 class="section-title">AVALIAÇÕES RECENTES</h2>
+            
+            <div class="review-card-list">
+                <div th:each="avaliacao : ${avaliacoesRecentes}" class="review-card">
+                    <!-- Placeholder da Imagem/Avatar da Avaliação -->
+                    <div class="review-avatar"></div>
+                    <!-- Texto + titulo da Avaliação -->
+                    <h4 th:text="${avaliacao.titulo}">Titulo</h4>
+                    <p th:text="${avaliacao.textoMock}" class="review-text">
+                        TEXTO TEXTO TEXTO TEXTO TEXTO TEXTO TEXTO TEXTO TEXTO TEXTO TEXTO TEXTO
+                    </p>
+                </div>
+                </div>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer>
+
+    </footer>
+
+</body>
+</html>
