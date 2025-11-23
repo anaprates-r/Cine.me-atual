@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${conteudo.titulo} + ' | Cine'">Detalhes | Cine</title>
+    <link rel="stylesheet" th:href="@{/vizualizacao.css}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-red': '#8A0808',
+                        'accent-teal': '#5b0000d1',
+                        'app-bg': '#7f0000ff',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+<header>
+    <nav>
+        <form action="/search" method="get" class="search-bar">
+            <input type="text" placeholder="O que está buscando?" name="q">
+            <button type="submit">🔍</button>
+        </form>
+
+        <ul class="menu-links">
+            <li><a th:href="@{/filmes}">Filmes</a></li>
+            <li><a th:href="@{/series}">Séries</a></li>
+            <li><a th:href="@{/perfil}">Perfil</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
+
+    <!-- TÍTULO / ANO / CLASSIFICAÇÃO / DURAÇÃO / GÊNERO -->
+    <div class="mb-6">
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-800 mb-1"
+            th:text="${conteudo.titulo}">NOME DO FILME/SÉRIE</h1>
+
+        <p class="text-sm text-gray-500 mb-4">
+            <!-- faltou ano -->
+            <span th:text="${conteudo.classificacao}"></span> •
+            <span th:text="${conteudo.duracao}"></span>
+        </p>
+
+        <span class="text-sm font-semibold text-blue-600 border-b border-blue-600 pb-0.5"
+              th:text="${conteudo.genero}">Gênero</span>
+    </div>
+
+    <div class="flex flex-col lg:flex-row gap-8">
+        <div class="lg:w-3/4">
+
+            <!-- TRAILER DO FILME/SÉRIE (URL VEM DO BANCO) -->
+            <div class="mt-6 flex flex-col md:flex-row gap-6">
+                <div class="w-full relative rounded-lg shadow-xl" style="padding-top: 56.25%;">
+                    <iframe class="absolute top-0 left-0 w-full h-full rounded-lg"
+                            th:src="${conteudo.fotoUrl}"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="w-full lg:w-1/4 flex flex-col gap-8 mt-6 lg:mt-0">
+
+            <!-- AVALIAÇÕES -->
+            <div class="bg-white rounded-xl shadow-xl pt-6 px-4 pb-4 flex flex-col h-fit">
+
+                <!-- Avaliações totais -->
+                <div class="rating-box">
+                    <span class="text-3xl font-extrabold text-gray-900"
+                          th:text="${totalAvaliacoes}">250</span>
+                    <span class="text-sm text-gray-500 text-center">Avaliações totais</span>
+                </div>
+
+                <!-- Média -->
+                <div class="rating-box">
+                    <div class="flex items-end mb-1">
+                        <span class="text-4xl text-yellow-500 mr-2">★</span>
+                        <span class="text-4xl font-bold text-gray-900"
+                              th:text="${media}"></span>
+                        <span class="text-xl font-medium text-gray-500">/5</span>
+                        <span class="text-xs text-primary-red font-bold ml-2 self-start pt-1"></span>
+                    </div>
+                    <span class="text-sm text-gray-500 text-center">Classificação média</span>
+                </div>
+
+                <!-- Sua avaliação -->
+
+
+                <!-- Botão AVALIAR -->
+                <a th:href="@{'/avaliar/' + ${conteudo.id}}" class="w-full block">
+                    <button class="w-full mt-4 bg-accent-teal hover:bg-teal-700 text-white font-bold py-2 rounded-lg transition duration-150 shadow-md hover:shadow-lg">
+                        AVALIAR
+                    </button>
+                </a>
+
+            </div>
+
+            <!-- SINOPSE -->
+            <div class="bg-white rounded-xl shadow-xl p-4 mt-0">
+                <h2 class="text-xl font-bold text-gray-800 border-b-2 border-primary-red pb-1 mb-3 inline-block">
+                    SINOPSE
+                </h2>
+
+                <p class="text-gray-600 leading-relaxed text-sm sm:text-base"
+                   th:text="${conteudo.descricao}">
+                    Descrição do filme/série...
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+</main>
+
+</body>
+</html>
+
