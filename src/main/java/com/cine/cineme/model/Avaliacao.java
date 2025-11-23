@@ -1,25 +1,31 @@
 package com.cine.cineme.model;
 
 import jakarta.persistence.*;
+
+
 import java.time.LocalDate;
 
 @Entity
 public class Avaliacao {
     @Id
-    private String id; 
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
     private int nota;
-    private String avaliacao; 
+    private String comentario;
     private LocalDate dataAvaliacao;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "conteudoId") 
-    private Conteudo conteudo;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "usuarioId") 
+    @ManyToOne
+    @JoinColumn(name="usuarioId")
     private Usuario usuario;
 
-    public Avaliacao() {}
+    @ManyToOne
+    @JoinColumn(name="conteudoId")
+    private Conteudo conteudo;
+
+    @PrePersist
+    public void prePersist() {
+        this.dataAvaliacao = LocalDate.now(); // preenche automaticamente a data no banco
+    }
 
     public String getId() {
         return id;
@@ -37,12 +43,12 @@ public class Avaliacao {
         this.nota = nota;
     }
 
-    public String getAvaliacao() {
-        return avaliacao;
+    public String getComentario() {
+        return comentario;
     }
 
-    public void setAvaliacao(String avaliacao) {
-        this.avaliacao = avaliacao;
+    public void setComentario(String avaliacao) {
+        this.comentario = avaliacao;
     }
 
     public LocalDate getDataAvaliacao() {
@@ -53,6 +59,14 @@ public class Avaliacao {
         this.dataAvaliacao = dataAvaliacao;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     public Conteudo getConteudo() {
         return conteudo;
     }
@@ -61,11 +75,15 @@ public class Avaliacao {
         this.conteudo = conteudo;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    @Override
+    public String toString() {
+        return "Avaliacao{" +
+                "id='" + id + '\'' +
+                ", nota=" + nota +
+                ", comentario='" + comentario + '\'' +
+                ", dataAvaliacao=" + dataAvaliacao +
+                ", usuario=" + usuario +
+                ", conteudo=" + conteudo +
+                '}';
     }
 }
