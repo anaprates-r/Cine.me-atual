@@ -9,6 +9,7 @@ import java.util.List;
 public interface AvaliacaoRepository extends JpaRepository<Avaliacao, String> {
 
     List<Avaliacao> findByConteudoId(String conteudoId);
+    List<Avaliacao> findByUsuarioId(String usuarioId);
 
     @Query("SELECT AVG(a.nota) FROM Avaliacao a WHERE a.conteudo.id = :conteudoId")
     Double calcularMedia(String conteudoId);
