@@ -1,0 +1,257 @@
+/* Estilização Base */
+html {
+    margin: 2%; 
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+/* CABEÇALHO (HEADER) */
+header {
+    background-color: #8a0007; 
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 2.8rem; 
+    z-index: 1000;
+}
+
+header nav {
+    display: flex; 
+    height: 4rem;
+    width: 100%;
+    align-items: center; 
+    justify-content: space-between; 
+    padding: 0 1rem; 
+}
+
+
+ul {
+    list-style-type: none;
+}
+
+.menu-links {
+    gap: 2rem; 
+    display: flex;
+    margin-right: 1.5rem; 
+}
+
+
+li a {
+    position: relative; 
+    color: aliceblue;
+    font-weight: 200;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+/*   Linha que aparece abaixo do link no hover, tipo uma animação */
+li a::before{
+    position: absolute;
+    content: "";
+    width: 0; 
+    height: 5px;
+    left: 0;
+    top: 25px;
+    border-radius: 1rem;
+    transition: 0.3s ease-in-out;
+    background: beige;
+}
+
+li a:hover::before{
+    width: 100%; 
+}
+
+
+.search-bar {
+    display: flex;
+    background-color: white;
+    border-radius: 50px;
+    padding: 5px;
+    width: 300px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.search-bar input {
+    border: none;
+    background: transparent;
+    padding: 0 15px;
+    font-size: 16px;
+    color: #333;
+    flex-grow: 1;
+    outline: none;
+}
+
+.search-bar button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px 10px;
+    color: #8B0000;
+}
+
+
+/* 2. SEÇÃO DESTAQUE (HERO)*/
+.destaque-filmes {
+    height: 400px;
+    background-color: #444; /* Cor cinza placeholder */
+    border-radius: 10px;
+    margin-bottom: 60px;
+    margin-top: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+}
+
+.destaque-filmes h2 {
+    font-size: 3em;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.destaque-filmes p {
+    font-size: 1.2em;
+    max-width: 600px;
+    margin-bottom: 30px;
+}
+
+.navegacao-destaque {
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.navegacao-destaque span {
+    width: 10px;
+    height: 10px;
+    background-color: #aaa;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.navegacao-destaque .dot-ativo {
+    background-color: #f0f0f0; /* Cor ativa */
+}
+
+/* 3. SEÇÃO CARROSSEL */
+.escolhe-filmes h3 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+
+.carousel-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.cards-list {
+    display: flex;
+    gap: 15px;
+    overflow-x: scroll; /* Permite rolagem horizontal */
+    padding: 10px 0;
+    /* Estilo para esconder a barra de rolagem (opcional e específico do navegador) */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    transition: transform 0.3s ease-in-out;
+}
+
+.cards-list :hover {
+    transform: scale(1.1);
+    z-index: 10;
+}
+
+.cards-list::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+}
+
+.filme-card {
+    min-width: 200px; /* Largura mínima dos cards */
+    height: 300px; /* Altura dos cards */
+    background-color: #444; /* Cor cinza placeholder */
+    border-radius: 8px;
+    flex-shrink: 0; /* Impede que os cards encolham */
+    transition: transform 0.3s, border 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.carousel-container button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 20px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-container .nav-left {
+    left: -20px;
+}
+
+.carousel-container .nav-right {
+    right: -20px;
+}
+
+/* 4. RESPONSIVIDADE (MOBILE)*/
+@media (max-width: 768px) {
+    
+    header nav {
+        flex-direction: column;
+        gap: 15px;
+        border-radius: 10px;
+    }
+
+    .search-bar {
+        width: 100%;
+    }
+    
+    .menu-links {
+        width: 100%;
+        justify-content: space-around;
+    }
+    
+    .destaque-filmes h2 {
+        font-size: 2em;
+    }
+
+    .destaque-filmes p {
+        font-size: 1em;
+    }
+    
+    .filme-card {
+        min-width: 150px;
+        height: 250px;
+    }
+
+    .filme-card.destaque {
+        min-width: 180px;
+        height: 280px;
+    }
+    
+    .carousel-container .nav-left {
+        left: -10px;
+    }
+
+    .carousel-container .nav-right {
+        right: -10px;
+    }
+}
