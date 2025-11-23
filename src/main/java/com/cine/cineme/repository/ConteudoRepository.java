@@ -10,4 +10,3 @@ public interface ConteudoRepository extends JpaRepository<Conteudo,String> {
     List<Conteudo> findByTipo(String tipo);
     List<Conteudo> findByTituloContainingIgnoreCase(String titulo);
 }
-
