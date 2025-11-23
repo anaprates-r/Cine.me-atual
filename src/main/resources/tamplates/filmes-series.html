@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filmes | Stream</title>
+    <link rel="stylesheet" href="C:\Users\Maria Yasmim\OneDrive\Desktop\Cine.me\cine\cine\src\main\resources\static\filmes.css">
+    <link rel="stylesheet" href="series.html">
+</head>
+<body>
+    <header>
+        <nav>
+            <form action="/search" method="get" class="search-bar">
+                <input type="text" placeholder="O que está buscando?" name="q">
+                <button type="submit">🔍</button>
+            </form>
+
+            <ul class="menu-links">
+                <li><a th:href="@{/filmes}">Filmes</a></li> 
+                <li><a th:href="@{/series}">Séries</a></li>
+                <li><a th:href="@{/perfil}">Perfil</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        
+        <section class="destaque-filmes">
+            <h2>
+                Nome do Filme
+            </h2>
+            <p>
+                Breve descrição Breve descrição Breve descrição Breve descrição Breve descrição.
+            </p>
+            
+            <!-- Indicadores de Navegação (Dots) -->
+            <div class="navegacao-destaque">
+                <span class="dot-ativo"></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </section>
+
+        <!-- SEÇÃO CAROUSEL  -->
+        <section class="escolhe-filmes">
+            <h3>Em Destaque Agora</h3>
+            
+            <div class="carousel-container">
+                <!-- Botão de Navegação Esquerda -->
+                <button class="nav-left"> &lt; </button>
+                
+                <!-- Lista de Cards -->
+                <div class="cards-list">
+                    <div class="filme-card"></div>
+                    <div class="filme-card"></div>
+                    <div class="filme-card"></div>
+                    <div class="filme-card"></div>
+                    <div class="filme-card"></div>
+                    <div class="filme-card"></div>
+                    <div class="filme-card"></div>
+                </div>
+
+                <!-- Botão de Navegação Direita -->
+                <button class="nav-right"> &gt; </button>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
