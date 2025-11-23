@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suas Avaliações | Perfil</title>
+    <link rel="stylesheet" href="perfil.css">
+</head>
+<body>
+
+     <header>
+        <nav>
+            <form action="/search" method="get" class="search-bar">
+                <input type="text" placeholder="O que está buscando?" name="q">
+                <button type="submit">🔍</button>
+            </form>
+
+            <ul class="menu-links">
+                <li><a th:href="@{/filmes}">Filmes</a></li> 
+                <li><a th:href="@{/series}">Séries</a></li>
+                <li><a th:href="@{/perfil}">Perfil</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <h1>Suas avaliações</h1>
+    <hr class="title-separator">
+
+    <div class="container">
+        <!-- Coluna de Perfil --><aside class="profile-section">
+            <h2 class="profile-header">MEU PERFIL</h2>
+            <div class="profile-info">
+                <div class="profile-avatar">
+                    <!-- Ícone de Perfil -->
+                     <img src="imagens/perfil.png" alt="foto de perfil" style="width: 20px; height: 20px">
+                </div>
+                <p class="profile-name" th:text="${nomeUsuario}">ANA CAROLINA RODRIGUES</p>
+                <p class="profile-username" th:text="${username}">nome de usuário</p>
+                <button class="edit-account-btn">editar conta</button>
+            </div>
+        </aside>
+
+        <!-- Coluna de Avaliações --><main class="reviews-section">
+            <!-- Card de Avaliação 1 --><div th:each="avaliacao : ${avaliacoes}" class="review-card">
+                <div class="movie-poster-placeholder"></div> <!-- Placeholder da imagem do filme --><div class="review-content">
+                    <div class="review-header">
+                        <h3 th:text="${avaliacao.nomeFilme}" class="movie-title">Nome do filme</h3>
+                        <div class="review-actions">
+                            <a th:href="@{/avaliacao/excluir/{id}(id=${avaliacao.id})}" class="review-action-btn delete">
+                                excluir
+                            </a>
+                        </div>
+                    </div>
+                    <p class="review-score">
+                        Sua nota: 
+                        <span th:with="notaArredondada=${#numbers.formatInteger(avaliacao.nota, 0)}">
+                        <span th:each="i : ${#numbers.sequence(1, notaArredondada)}" class="star-icon filled">★</span>
+                        <span th:each="i : ${#numbers.sequence(notaArredondada + 1, 5)}" class="star-icon empty"></span>
+                        </span>
+                    </p>
+                    <p th:text="${avaliacao.textoAvaliacao}" class="review-text">
+                        texto texto texto texto texto texto texto 
+                    </p>
+                </div>
+            </div>
+        </main>
+    </div> 
+</body>
+</html>
