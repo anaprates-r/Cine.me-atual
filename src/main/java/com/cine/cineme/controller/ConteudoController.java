@@ -1,54 +1,55 @@
 package com.cine.cineme.controller;
 
+import com.cine.cineme.model.Avaliacao;
 import com.cine.cineme.model.Conteudo;
+import com.cine.cineme.model.Usuario;
 import com.cine.cineme.repository.ConteudoRepository;
+import com.cine.cineme.repository.UsuarioRepository;
+import com.cine.cineme.service.AvaliacaoService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
-@RestController
-@RequestMapping("conteudos")
+@Controller
+@RequestMapping("/conteudo")
 public class ConteudoController {
 
-    private ConteudoRepository conteudoRepository;
+    private final ConteudoRepository conteudoRepository;
+    private final UsuarioRepository usuarioRepository;
+    private final AvaliacaoService avaliacaoService;
 
-    public ConteudoController(ConteudoRepository conteudoRepository) {
+    public ConteudoController(ConteudoRepository conteudoRepository,
+                              UsuarioRepository usuarioRepository,
+                              AvaliacaoService avaliacaoService) {
+
         this.conteudoRepository = conteudoRepository;
+        this.usuarioRepository = usuarioRepository;
+        this.avaliacaoService = avaliacaoService;
     }
 
-    @PostMapping
-    public Conteudo salvar(@RequestBody Conteudo conteudo){
-        System.out.println("conteudo: " + conteudo);
-        var id = UUID.randomUUID().toString();
-        conteudo.setId(id);
-        conteudoRepository.save(conteudo);
-        return conteudo;
-    }
-    @GetMapping("{id}")
-    public Conteudo obterPorId(@PathVariable("id") String id){
-        Optional<Conteudo> conteudo = conteudoRepository.findById(id);
-        return conteudo.isPresent() ? conteudo.get() : null;
-    }
+    @GetMapping("/{id}")
+    public String detalhes(@PathVariable String id,
+                           @RequestParam(required = false) String usuarioId,
+                           Model model) {
 
-    @DeleteMapping("{id}")
-    public void deletar(@PathVariable("id") String id){
-        conteudoRepository.deleteById(id);
-    }
-    @GetMapping("/buscar")
-    public List<Conteudo> buscarPorTitulo(@RequestParam String titulo) {
-        return conteudoRepository.findByTituloContainingIgnoreCase(titulo);
-    }
+        Conteudo conteudo = conteudoRepository.findById(id).orElseThrow();
 
-    @GetMapping("/tipo/{tipo}")
-    public List<Conteudo> exibirPorTipo(@PathVariable("tipo") String tipo){
-        return conteudoRepository.findByTipo(tipo);
-    }
+        model.addAttribute("conteudo", conteudo);
 
-    @PutMapping("{id}")
-    public void editar(@PathVariable("id") String id, @RequestBody Conteudo conteudo){
-        conteudo.setId(id);
-        conteudoRepository.save(conteudo);
+        // avaliações totais
+        var avaliacoes = avaliacaoService.listarPorConteudo(id);
+        model.addAttribute("avaliacoes", avaliacoes);
+        model.addAttribute("totalAvaliacoes", avaliacoes.size());
+
+        // média
+        model.addAttribute("media", avaliacaoService.calcularMedia(id));
+
+        // avaliação do usuário (caso logado)
+        if (usuarioId != null) {
+            Avaliacao minha = avaliacaoService.buscarAvaliacaoDoUsuario(usuarioId, id);
+            model.addAttribute("minhaAvaliacao", minha);
+        }
+
+        return "vizualizacao";
     }
 }
