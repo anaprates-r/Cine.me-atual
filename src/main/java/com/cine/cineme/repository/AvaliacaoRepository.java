@@ -2,12 +2,16 @@ package com.cine.cineme.repository;
 
 import com.cine.cineme.model.Avaliacao;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-@Repository
 public interface AvaliacaoRepository extends JpaRepository<Avaliacao, String> {
-    
-    List<Avaliacao> findByUsuarioId(String usuarioId);
+
+    List<Avaliacao> findByConteudoId(String conteudoId);
+
+    @Query("SELECT AVG(a.nota) FROM Avaliacao a WHERE a.conteudo.id = :conteudoId")
+    Double calcularMedia(String conteudoId);
+
+    Avaliacao findByUsuarioIdAndConteudoId(String usuarioId, String conteudoId);
 }
