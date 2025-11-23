@@ -23,7 +23,7 @@ public class EditarPerfilController {
 
         model.addAttribute("usuario", usuario);
 
-        return "editaperfil";  // seu HTML
+        return "editaperfil";  
     }
 
     @PostMapping("/{id}/salvar")
