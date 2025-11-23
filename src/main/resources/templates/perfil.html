@@ -27,41 +27,43 @@
     <hr class="title-separator">
 
     <div class="container">
-        <!-- Coluna de Perfil --><aside class="profile-section">
+        <aside class="profile-section">
             <h2 class="profile-header">MEU PERFIL</h2>
             <div class="profile-info">
                 <div class="profile-avatar">
-                    <!-- Ícone de Perfil -->
-                     <img src="imagens/perfil.png" alt="foto de perfil" style="width: 20px; height: 20px">
+                    <img src="imagens/perfil.png" alt="foto de perfil" style="width: 20px; height: 20px">
                 </div>
                 <p class="profile-name" th:text="${nomeUsuario}">ANA CAROLINA RODRIGUES</p>
                 <p class="profile-username" th:text="${username}">nome de usuário</p>
+
+                <a th:href="@{/perfil/editar}"> 
                 <button class="edit-account-btn">editar conta</button>
+                </a>
             </div>
         </aside>
 
         <!-- Coluna de Avaliações --><main class="reviews-section">
             <!-- Card de Avaliação 1 --><div th:each="avaliacao : ${avaliacoes}" class="review-card">
                 <div class="movie-poster-placeholder"></div> <!-- Placeholder da imagem do filme --><div class="review-content">
-                    <div class="review-header">
-                        <h3 th:text="${avaliacao.nomeFilme}" class="movie-title">Nome do filme</h3>
-                        <div class="review-actions">
-                            <a th:href="@{/avaliacao/excluir/{id}(id=${avaliacao.id})}" class="review-action-btn delete">
-                                excluir
-                            </a>
-                        </div>
-                    </div>
-                    <p class="review-score">
-                        Sua nota: 
-                        <span th:with="notaArredondada=${#numbers.formatInteger(avaliacao.nota, 0)}">
-                        <span th:each="i : ${#numbers.sequence(1, notaArredondada)}" class="star-icon filled">★</span>
-                        <span th:each="i : ${#numbers.sequence(notaArredondada + 1, 5)}" class="star-icon empty"></span>
-                        </span>
-                    </p>
-                    <p th:text="${avaliacao.textoAvaliacao}" class="review-text">
-                        texto texto texto texto texto texto texto 
-                    </p>
-                </div>
+    <div class="review-header">
+        <h3 th:text="${avaliacao.conteudo.titulo}" class="movie-title">Nome do filme</h3> 
+        <div class="review-actions">
+            <a th:href="@{/avaliacao/excluir/{id}(id=${avaliacao.id})}" class="review-action-btn delete">
+                excluir
+            </a>
+        </div>
+    </div>
+    <p class="review-score">
+        Sua nota: 
+        <span th:with="notaArredondada=${avaliacao.nota}"> 
+            <span th:each="i : ${#numbers.sequence(1, notaArredondada)}" class="star-icon filled">★</span>
+            <span th:each="i : ${#numbers.sequence(notaArredondada + 1, 5)}" class="star-icon empty"></span>
+        </span>
+    </p>
+    <p th:text="${avaliacao.avaliacao}" class="review-text">
+        texto texto texto texto texto texto texto 
+    </p>
+</div>
             </div>
         </main>
     </div> 
