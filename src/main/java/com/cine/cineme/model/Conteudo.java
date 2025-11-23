@@ -12,7 +12,7 @@ public class Conteudo {
     private String genero;
     private String duracao;
     private int classificacao;
-    private String fotoUrl;
+    private String Url;
     private String tipo;
 
     public String getId() {
@@ -63,12 +63,12 @@ public class Conteudo {
         this.classificacao = classificacao;
     }
 
-    public String getFotoUrl() {
-        return fotoUrl;
+    public String getrl() {
+        return Url;
     }
 
-    public void setFotoUrl(String fotoUrl) {
-        this.fotoUrl = fotoUrl;
+    public void setUrl(String Url) {
+        this.Url = Url;
     }
 
     public String getTipo() {
@@ -88,7 +88,7 @@ public class Conteudo {
                 ", genero='" + genero + '\'' +
                 ", duracao='" + duracao + '\'' +
                 ", classificacao=" + classificacao +
-                ", fotoUrl='" + fotoUrl + '\'' +
+                ", Url='" + Url + '\'' +
                 ", tipo='" + tipo + '\'' +
                 '}';
     }
