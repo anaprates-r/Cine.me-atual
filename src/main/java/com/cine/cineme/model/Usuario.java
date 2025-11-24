@@ -1,13 +1,14 @@
 package com.cine.cineme.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Usuario {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String nome;
+    @Column(name = "nome_usuario")
     private String nomeUsuario;
     private String senha;
 
