@@ -63,7 +63,7 @@ public class Conteudo {
         this.classificacao = classificacao;
     }
 
-    public String getrl() {
+    public String getUrl() {
         return Url;
     }
 
