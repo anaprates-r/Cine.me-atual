@@ -8,6 +8,5 @@ import java.util.Optional;
 
 public interface ConteudoRepository extends JpaRepository<Conteudo,String> {
     List<Conteudo> findByTipo(String tipo);
-    List<Conteudo> findByTituloContainingIgnoreCase(String titulo);
+    Optional<Conteudo> findByTituloIgnoreCase(String titulo);
 }
-
