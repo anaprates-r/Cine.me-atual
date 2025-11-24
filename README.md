@@ -52,17 +52,14 @@ O projeto segue os princípios de aplicações web modernas, utilizando tecnolog
 🔸 Criação de **listas personalizadas** (“quero assistir”, “já assisti”, “favoritos”).  
 🔸 Integração com **APIs externas** (ex: TMDb) para importação automática de informações.  
 🔸 Sistema de **recomendações inteligentes** baseado no perfil do usuário.  
-🔸 Modo escuro e personalização de interface.  
 🔸 **Média de avaliações** — cálculo automático das notas atribuídas pelos usuários.  
-🔸 **Ranking semanal** — exibição dos conteúdos mais bem avaliados da comunidade.  
-
 ---
 
 ## 🚀 Funcionalidades Implementadas
 
 ✅ **Cadastro e login de usuários** — autenticação segura com persistência de dados.  
 ✅ **Avaliação de filmes e séries** — notas e comentários sobre conteúdos assistidos.  
-✅ **Busca e filtragem** — pesquisa por nome, gênero, ano ou plataforma de streaming.  
+✅ **Busca** — pesquisa por nome. 
 
 ---
 
