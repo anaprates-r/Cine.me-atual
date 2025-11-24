@@ -1,6 +1,7 @@
 package com.cine.cineme.service;
 
 import com.cine.cineme.model.Conteudo;
+import com.cine.cineme.model.Usuario;
 import com.cine.cineme.repository.ConteudoRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +20,6 @@ public class ConteudoService {
     }
 
     // Métodos pra homepage
-
-    // Recomendação usando tipo e limite
     public List<Conteudo> getRecomendacoesHome() {
         List<Conteudo> todosConteudos = conteudoRepository.findAll();
         if (todosConteudos.isEmpty()) {
@@ -29,7 +28,6 @@ public class ConteudoService {
         return todosConteudos.subList(0, Math.min(todosConteudos.size(), 2));
     }
     
-    // Avaliações Recentes, vamos simular com base na Classificação, já que não temos tabela de Avaliação ainda
     public List<Conteudo> getAvaliacoesRecentes() {
         List<Conteudo> todosConteudos = conteudoRepository.findAll();
         if (todosConteudos.isEmpty()) {
@@ -38,6 +36,9 @@ public class ConteudoService {
         todosConteudos.sort(Comparator.comparing(Conteudo::getClassificacao).reversed());
         return todosConteudos.subList(0, Math.min(todosConteudos.size(), 3));
     }
+    public Conteudo buscarPorTitulo(String titulo) {
+        return conteudoRepository.findByTituloIgnoreCase(titulo).orElse(null);
+    }
 
     // OUTROS MÉTODOS 
 
@@ -45,7 +46,8 @@ public class ConteudoService {
         return conteudoRepository.findByTipo(tipo);
     }
     
-    public Optional<Conteudo> buscarPorId(String id) {
-        return conteudoRepository.findById(id);
+    public Conteudo buscarPorId(String id) {
+        return conteudoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Conteudo não encontrado"));
     }
 }
