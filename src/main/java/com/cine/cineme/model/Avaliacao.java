@@ -12,19 +12,22 @@ public class Avaliacao {
     private String id;
     private int nota;
     private String comentario;
+    @Column(name = "data_avaliacao")
     private LocalDate dataAvaliacao;
 
     @ManyToOne
-    @JoinColumn(name="usuarioId")
+    @JoinColumn(name="usuario_id")
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name="conteudoId")
+    @JoinColumn(name="conteudo_id")
     private Conteudo conteudo;
 
     @PrePersist
     public void prePersist() {
-        this.dataAvaliacao = LocalDate.now(); // preenche automaticamente a data no banco
+        if (this.dataAvaliacao == null) {
+            this.dataAvaliacao = LocalDate.now(); // define a data atual ao inserir
+        }
     }
 
     public String getId() {
